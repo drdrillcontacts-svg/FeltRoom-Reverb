@@ -6,6 +6,8 @@ FetchContent_Declare(JUCE GIT_REPOSITORY https://github.com/juce-framework/JUCE.
 FetchContent_MakeAvailable(JUCE)
 juce_add_plugin(FeltRoom COMPANY_NAME "DA Instruments" BUNDLE_ID "com.dainstruments.feltroom" PLUGIN_MANUFACTURER_CODE Dazi PLUGIN_CODE Flrm FORMATS VST3 PRODUCT_NAME "FeltRoom" IS_SYNTH FALSE NEEDS_MIDI_INPUT FALSE NEEDS_MIDI_OUTPUT FALSE EDITOR_WANTS_KEYBOARD_FOCUS TRUE COPY_PLUGIN_AFTER_BUILD FALSE)
 juce_generate_juce_header(FeltRoom)
+# This is a new VST3-only plugin; do not enable legacy VST2 replacement.
+target_compile_definitions(FeltRoom PRIVATE JUCE_VST3_CAN_REPLACE_VST2=0)
 juce_add_binary_data(FeltRoomAssets SOURCES Assets/piano.jpg)
 target_link_libraries(FeltRoom PRIVATE FeltRoomAssets juce::juce_audio_utils juce::juce_dsp PUBLIC juce::juce_recommended_config_flags juce::juce_recommended_lto_flags juce::juce_recommended_warning_flags)
 target_compile_definitions(FeltRoom PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
